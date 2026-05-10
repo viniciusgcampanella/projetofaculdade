@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CantinApp - Cardápio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>🍽️ CantinApp</h1>
+                <div class="user-info">
+                    <span id="nomeAluno"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav-menu">
+            <a href="cardapio.html" class="nav-link active">🍕 Cardápio</a>
+            <a href="historico.html" class="nav-link">📋 Histórico</a>
+            <a href="relatorio.html" class="nav-link">📊 Relatório</a>
+        </nav>
+
+        <main class="main-content">
+            <section class="cardapio-section">
+                <div class="section-header">
+                    <h2>Cardápio da Cantina</h2>
+                    <div class="filtros">
+                        <select id="filtroCategoria" class="filtro-select">
+                            <option value="">Todas as categorias</option>
+                            <option value="Principais">Principais</option>
+                            <option value="Acompanhamentos">Acompanhamentos</option>
+                            <option value="Bebidas">Bebidas</option>
+                            <option value="Sobremesas">Sobremesas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="horario-info">
+                    <span class="badge">⏰ Horário de retirada: 11:00 - 13:00</span>
+                    <span class="badge" id="statusCantina">Aberta</span>
+                </div>
+
+                <div id="cardapioContainer" class="cardapio-grid"></div>
+            </section>
+
+            <aside class="carrinho-sidebar">
+                <div class="carrinho-header">
+                    <h3>🛒 Meu Pedido</h3>
+                    <button class="btn-fechar" onclick="fecharCarrinho()">✕</button>
+                </div>
+
+                <div id="carrinhoItems" class="carrinho-items">
+                    <p class="vazio">Nenhum item selecionado</p>
+                </div>
+
+                <div class="carrinho-total">
+                    <p><strong>Total:</strong> <span id="totalCarrinho">R$ 0,00</span></p>
+                </div>
+
+                <form id="formPedido" class="form-pedido">
+                    <div class="form-group">
+                        <label for="dataRetirada">Data de retirada</label>
+                        <input type="date" id="dataRetirada" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes">Observações</label>
+                        <textarea id="observacoes" placeholder="Alguma restrição ou preferência?"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Confirmar Pedido</button>
+                </form>
+            </aside>
+        </main>
+    </div>
+
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarAutenticacao();
+            carregarCardapio();
+            configurarDataMinima();
+            
+            document.getElementById('filtroCategoria').addEventListener('change', carregarCardapio);
+            document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CantinApp - Relatório de Desperdício</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>🍽️ CantinApp</h1>
+                <div class="user-info">
+                    <span id="nomeAluno"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav-menu">
+            <a href="cardapio.html" class="nav-link">🍕 Cardápio</a>
+            <a href="historico.html" class="nav-link">📋 Histórico</a>
+            <a href="relatorio.html" class="nav-link active">📊 Relatório</a>
+        </nav>
+
+        <main class="main-content relatorio-page">
+            <section class="relatorio-section">
+                <div class="section-header">
+                    <h2>Relatório de Desperdício</h2>
+                    <div class="filtros">
+                        <select id="filtroPeriodo" class="filtro-select">
+                            <option value="mes">Este Mês</option>
+                            <option value="trimestre">Este Trimestre</option>
+                            <option value="semestre">Este Semestre</option>
+                            <option value="ano">Este Ano</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="relatorio-grid">
+                    <div class="card-relatorio">
+                        <h3>📊 Estatísticas Gerais</h3>
+                        <div class="stat-item">
+                            <span>Total de Pedidos:</span>
+                            <strong id="totalPedidos">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Pedidos Retirados:</span>
+                            <strong id="pedidosRetirados">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Pedidos Cancelados:</span>
+                            <strong id="pedidosCancelados">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Taxa de Desperdício:</span>
+                            <strong id="taxaDesperdicio">0%</strong>
+                        </div>
+                    </div>
+
+                    <div class="card-relatorio">
+                        <h3>🍽️ Itens Mais Desperdiçados</h3>
+                        <div id="itemesDesperdiçados" class="itens-list">
+                            <p class="vazio">Sem dados</p>
+                        </div>
+                    </div>
+
+                    <div class="card-relatorio">
+                        <h3>💰 Impacto Financeiro</h3>
+                        <div class="stat-item">
+                            <span>Valor Desperdiçado:</span>
+                            <strong id="valorDesperdicio">R$ 0,00</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Valor Total de Pedidos:</span>
+                            <strong id="valorTotal">R$ 0,00</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Economia Potencial:</span>
+                            <strong id="economiaTotal">R$ 0,00</strong>
+                        </div>
+                    </div>
+
+                    <div class="card-relatorio">
+                        <h3>📈 Tendências</h3>
+                        <div id="tendencias" class="tendencias-list">
+                            <p class="vazio">Sem dados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grafico-container">
+                    <h3>📉 Gráfico de Desperdício por Dia</h3>
+                    <canvas id="graficoDisperdicio" style="max-width: 100%;"></canvas>
+                </div>
+
+                <div class="recomendacoes">
+                    <h3>💡 Recomendações</h3>
+                    <ul id="recomendacoesList">
+                        <li>Monitorar os itens com maior taxa de desperdício</li>
+                        <li>Aumentar divulgação do cardápio com antecedência</li>
+                        <li>Implementar sistema de confirmação de pedidos</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarAutenticacao();
+            carregarRelatorio();
+            document.getElementById('filtroPeriodo').addEventListener('change', carregarRelatorio);
+        });
+    </script>
+</body>
+</html>

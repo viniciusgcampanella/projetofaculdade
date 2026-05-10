@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CantinApp - Login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Meu site</h1>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🍽️ CantinApp</h1>
+                <p>Sistema de Pedidos da Cantina</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="ra">RA (Registro do Aluno)</label>
+                    <input type="text" id="ra" name="ra" placeholder="Digite seu RA" required>
+                    <small>Exemplo: 2024001</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+
+            <div class="login-info">
+                <p><strong>Dados de teste:</strong></p>
+                <p>RA: 2024001 | Senha: senha123</p>
+                <p>RA: 2024002 | Senha: senha123</p>
+            </div>
+
+            <div id="loginError" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
