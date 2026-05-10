@@ -222,6 +222,67 @@ body {
     white-space: nowrap;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.carrinho-icon {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.carrinho-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.cart-emoji {
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #D62828;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 700;
+    border: 2px solid white;
+    animation: badgePop 0.3s ease;
+}
+
+@keyframes badgePop {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .user-info {
     display: flex;
     align-items: center;
@@ -851,6 +912,19 @@ body {
         font-size: 1.2em;
     }
 
+    .header-right {
+        gap: 15px;
+    }
+
+    .carrinho-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .cart-emoji {
+        font-size: 1.3em;
+    }
+
     .user-info {
         gap: 10px;
     }
@@ -949,21 +1023,41 @@ body {
         font-size: 1.1em;
     }
 
-    .user-info {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-end;
+    .header-right {
+        gap: 10px;
     }
 
-    .user-info span {
-        display: block;
-        font-size: 0.8em;
-        font-weight: 600;
+    .carrinho-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .cart-emoji {
+        font-size: 1.2em;
+    }
+
+    .cart-badge {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7em;
     }
 
     .btn.btn-secondary {
         padding: 6px 12px;
         font-size: 0.75em;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-end;
+    }
+
+    .user-info span {
+        display: block;
+        font-size: 0.7em;
+        font-weight: 600;
+        line-height: 1;
     }
 
     /* Navigation */

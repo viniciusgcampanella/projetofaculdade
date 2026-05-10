@@ -18,9 +18,15 @@
                     </button>
                     <h1>🍽️ CantinApp</h1>
                 </div>
-                <div class="user-info">
-                    <span id="nomeAluno"></span>
-                    <button class="btn btn-secondary" onclick="logout()">Sair</button>
+                <div class="header-right">
+                    <div class="carrinho-icon" onclick="scrollParaCarrinho()">
+                        <span class="cart-emoji">🛒</span>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                    <div class="user-info">
+                        <span id="nomeAluno"></span>
+                        <button class="btn btn-secondary" onclick="logout()">Sair</button>
+                    </div>
                 </div>
             </div>
         </header>

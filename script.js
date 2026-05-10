@@ -103,6 +103,7 @@ function carregarCardapio() {
     if (!container) return;
     
     container.innerHTML = '';
+    atualizarBadgeCarrinho(); // Inicializar badge
     
     let itens = cardapio;
     if (categoria) {
@@ -154,11 +155,13 @@ function adicionarAoCarrinho(itemId) {
     }
     
     atualizarCarrinho();
+    atualizarBadgeCarrinho();
 }
 
 function removerDoCarrinho(itemId) {
     carrinho = carrinho.filter(item => item.id !== itemId);
     atualizarCarrinho();
+    atualizarBadgeCarrinho();
 }
 
 function alterarQuantidade(itemId, quantidade) {
@@ -166,6 +169,7 @@ function alterarQuantidade(itemId, quantidade) {
     if (item) {
         item.quantidade = Math.max(1, quantidade);
         atualizarCarrinho();
+        atualizarBadgeCarrinho();
     }
 }
 
@@ -273,6 +277,7 @@ function confirmarPedido(event) {
     document.getElementById('formPedido').reset();
     configurarDataMinima();
     atualizarCarrinho();
+    atualizarBadgeCarrinho();
     
     // Mostrar confirmação
     const modal = document.getElementById('modal');
@@ -538,6 +543,27 @@ function criarGraficoDisperdicio(pedidos) {
 }
 
 // ==================== UTILIDADES ====================
+
+function atualizarBadgeCarrinho() {
+    const badge = document.getElementById('cartBadge');
+    if (!badge) return;
+    
+    const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
+    badge.textContent = totalItens;
+    
+    // Animar o badge
+    badge.style.animation = 'none';
+    setTimeout(() => {
+        badge.style.animation = 'badgePop 0.3s ease';
+    }, 10);
+}
+
+function scrollParaCarrinho() {
+    const carrinho = document.querySelector('.carrinho-sidebar');
+    if (carrinho) {
+        carrinho.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
 
 function toggleMenu() {
     const menuToggle = document.getElementById('menuToggle');
