@@ -795,6 +795,10 @@ function fecharModal() {
 // ==================== PAGAMENTO ====================
 
 function mostrarOpcoesPagamento() {
+    console.log('=== INICIANDO mostrarOpcoesPagamento ===');
+    console.log('Carrinho:', carrinho);
+    console.log('Tamanho do carrinho:', carrinho.length);
+
     if (carrinho.length === 0) {
         alert('❌ Adicione itens ao carrinho!');
         return;
@@ -803,10 +807,20 @@ function mostrarOpcoesPagamento() {
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modalBody');
 
+    console.log('Modal encontrado?', !!modal);
+    console.log('ModalBody encontrado?', !!modalBody);
+
+    if (!modal || !modalBody) {
+        alert('Erro: Modal não encontrado no DOM');
+        return;
+    }
+
     let total = 0;
     carrinho.forEach(item => {
         total += item.preco * item.quantidade;
     });
+
+    console.log('Total calculado:', total);
 
     modalBody.innerHTML = `
         <h2 style="text-align: center; margin-bottom: 20px;">💳 Escolha o Método de Pagamento</h2>
@@ -830,9 +844,8 @@ function mostrarOpcoesPagamento() {
     `;
 
     console.log('Modal HTML definido');
-    console.log('Modal element:', modal);
     modal.style.display = 'block';
-    console.log('Modal exibido');
+    console.log('Modal display alterado para block');
 }
 
 function selecionarPagamento(metodo) {
