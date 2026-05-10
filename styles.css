@@ -193,27 +193,75 @@ body {
 .header {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
-    padding: 20px 0;
+    padding: 15px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
 }
 
 .header h1 {
-    font-size: 1.8em;
+    font-size: 1.5em;
+    white-space: nowrap;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.user-info span {
+    display: none;
+}
+
+/* Menu Hamburger */
+.menu-hamburger {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    gap: 6px;
+}
+
+.menu-hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.menu-hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.menu-hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Navigation Menu */
@@ -225,8 +273,9 @@ body {
     padding: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     position: sticky;
-    top: 0;
-    z-index: 100;
+    top: 60px;
+    z-index: 999;
+    transition: all 0.3s ease;
 }
 
 .nav-link {
@@ -407,8 +456,8 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     position: sticky;
-    top: 100px;
-    max-height: calc(100vh - 150px);
+    top: 130px;
+    max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
 }
@@ -774,66 +823,525 @@ body {
     font-style: italic;
 }
 
-/* Responsive */
+/* Responsive Design - Tablet (768px e abaixo) */
 @media (max-width: 768px) {
     .main-content {
         flex-direction: column;
         gap: 20px;
+        padding: 15px 10px;
     }
 
     .carrinho-sidebar {
         width: 100%;
         position: static;
         max-height: none;
+        margin-top: 20px;
     }
 
     .cardapio-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
     }
 
-    .header-content {
-        flex-direction: column;
-        gap: 15px;
+    .header-left {
+        gap: 10px;
+    }
+
+    .header h1 {
+        font-size: 1.2em;
+    }
+
+    .user-info {
+        gap: 10px;
+    }
+
+    .user-info span {
+        display: none;
     }
 
     .section-header {
         flex-direction: column;
         align-items: flex-start;
-    }
-
-    .nav-menu {
-        flex-wrap: wrap;
-    }
-
-    .nav-link {
-        flex: 0 1 auto;
-        font-size: 0.9em;
-    }
-
-    .login-box {
-        padding: 30px 20px;
-    }
-
-    .relatorio-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .cardapio-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .header h1 {
-        font-size: 1.3em;
+        gap: 10px;
     }
 
     .section-header h2 {
         font-size: 1.5em;
     }
 
+    .filtros {
+        width: 100%;
+    }
+
+    .filtro-select {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .nav-menu {
+        top: 55px;
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
+        flex: 0 1 calc(33.333% - 5px);
+        padding: 12px 8px;
+        font-size: 0.85em;
+    }
+
+    .login-box {
+        padding: 25px 15px;
+    }
+
+    .relatorio-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card-relatorio {
+        padding: 15px;
+    }
+
+    .pedido-info {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     .btn {
         padding: 10px 15px;
         font-size: 0.9em;
+    }
+
+    .btn-pequeno {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+}
+
+/* Responsive Design - Mobile (480px e abaixo) */
+@media (max-width: 480px) {
+    /* Menu Hamburger visível */
+    .menu-hamburger {
+        display: flex;
+    }
+
+    /* Header adjustments */
+    .header {
+        padding: 12px 0;
+    }
+
+    .header-content {
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    .header-left {
+        gap: 8px;
+    }
+
+    .header h1 {
+        font-size: 1.1em;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-end;
+    }
+
+    .user-info span {
+        display: block;
+        font-size: 0.8em;
+        font-weight: 600;
+    }
+
+    .btn.btn-secondary {
+        padding: 6px 12px;
+        font-size: 0.75em;
+    }
+
+    /* Navigation */
+    .nav-menu {
+        top: 52px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .nav-menu.active {
+        flex-direction: column;
+        position: absolute;
+        top: 52px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 999;
+        border-radius: 0;
+    }
+
+    .nav-menu.active .nav-link {
+        flex: 1 1 100%;
+        border-bottom: 1px solid var(--border-color);
+        border-right: none;
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    .nav-link {
+        flex: 0 0 calc(33.333% - 3px);
+        padding: 10px 5px;
+        font-size: 0.75em;
+        white-space: nowrap;
+    }
+
+    /* Main content */
+    .main-content {
+        flex-direction: column;
+        gap: 15px;
+        padding: 12px 8px;
+    }
+
+    .cardapio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card-comida {
+        border-radius: 6px;
+    }
+
+    .card-imagem {
+        height: 120px;
+        font-size: 2.5em;
+    }
+
+    .card-info {
+        padding: 10px;
+    }
+
+    .card-nome {
+        font-size: 0.95em;
+    }
+
+    .card-descricao {
+        font-size: 0.8em;
+        margin-bottom: 8px;
+    }
+
+    .card-footer {
+        padding-top: 8px;
+        gap: 8px;
+    }
+
+    .card-preco {
+        font-size: 1.1em;
+    }
+
+    .card-btn {
+        padding: 6px 10px;
+        font-size: 0.75em;
+    }
+
+    /* Carrinho */
+    .carrinho-sidebar {
+        border-radius: 6px;
+        padding: 12px;
+    }
+
+    .carrinho-header {
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+    }
+
+    .carrinho-header h3 {
+        font-size: 1em;
+    }
+
+    .item-carrinho {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+
+    .item-carrinho-nome {
+        font-size: 0.9em;
+    }
+
+    .qty-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 0.9em;
+    }
+
+    .item-remove {
+        padding: 4px 8px;
+        font-size: 0.75em;
+        margin-top: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px;
+        font-size: 1em; /* Evita zoom no iOS */
+    }
+
+    .btn-full {
+        margin-top: 8px;
+    }
+
+    /* Seções */
+    .section-header {
+        gap: 8px;
+    }
+
+    .section-header h2 {
+        font-size: 1.3em;
+    }
+
+    .filtros {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .filtro-select {
+        width: 100%;
+    }
+
+    .horario-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .badge {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    /* Histórico */
+    .card-pedido {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .pedido-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .pedido-numero {
+        font-size: 0.95em;
+    }
+
+    .pedido-info {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .info-item {
+        padding: 8px;
+    }
+
+    .info-label {
+        font-size: 0.75em;
+    }
+
+    .info-valor {
+        font-size: 0.9em;
+    }
+
+    .pedido-itens {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pedido-itens h4 {
+        font-size: 0.85em;
+        margin-bottom: 8px;
+    }
+
+    .pedido-item-line {
+        padding: 4px 0;
+        font-size: 0.85em;
+    }
+
+    .pedido-acoes {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-pequeno {
+        padding: 8px 12px;
+        font-size: 0.8em;
+        width: 100%;
+    }
+
+    /* Relatório */
+    .relatorio-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .card-relatorio {
+        padding: 12px;
+    }
+
+    .card-relatorio h3 {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+
+    .stat-item {
+        padding: 8px 0;
+        font-size: 0.85em;
+    }
+
+    .stat-item strong {
+        font-size: 0.95em;
+    }
+
+    .lista-item {
+        padding: 8px;
+        margin-bottom: 6px;
+        font-size: 0.85em;
+    }
+
+    .grafico-container {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .grafico-container h3 {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+
+    .recomendacoes {
+        padding: 12px;
+    }
+
+    .recomendacoes h3 {
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+
+    .recomendacoes li {
+        padding: 8px 0 8px 20px;
+        font-size: 0.85em;
+    }
+
+    /* Login */
+    .login-container {
+        padding: 15px;
+    }
+
+    .login-box {
+        padding: 20px 15px;
+    }
+
+    .logo h1 {
+        font-size: 2em;
+    }
+
+    .logo p {
+        font-size: 0.85em;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px;
+    }
+
+    .form-group small {
+        font-size: 0.75em;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+        width: 100%;
+    }
+
+    .login-info {
+        padding: 10px;
+        margin-top: 15px;
+        font-size: 0.8em;
+    }
+
+    .login-info p {
+        margin: 3px 0;
+    }
+
+    .error-message {
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 0.85em;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: 20% auto;
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .close {
+        right: 10px;
+        top: 10px;
+        font-size: 1.5em;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2em;
+    }
+
+    .modal-content p {
+        font-size: 0.85em;
+    }
+
+    /* Utilities */
+    .vazio {
+        padding: 20px 10px;
+        font-size: 0.9em;
+    }
+}
+
+/* Ultra-mobile (320px e abaixo) */
+@media (max-width: 320px) {
+    .header h1 {
+        font-size: 0.9em;
+    }
+
+    .section-header h2 {
+        font-size: 1.1em;
+    }
+
+    .cardapio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-link {
+        font-size: 0.65em;
+        padding: 8px 4px;
+    }
+
+    .btn {
+        font-size: 0.8em;
+        padding: 8px 10px;
     }
 }

@@ -539,6 +539,29 @@ function criarGraficoDisperdicio(pedidos) {
 
 // ==================== UTILIDADES ====================
 
+function toggleMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    }
+}
+
+// Fechar menu ao clicar em um link
+document.addEventListener('click', function(event) {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (navMenu?.classList.contains('active') && 
+        !event.target.closest('.menu-hamburger') && 
+        !event.target.closest('.nav-menu')) {
+        menuToggle?.classList.remove('active');
+        navMenu?.classList.remove('active');
+    }
+});
+
 function atualizarStatusCantina() {
     const statusElement = document.getElementById('statusCantina');
     if (!statusElement) return;
