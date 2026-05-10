@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CantinApp - Selecionar Cantina</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="assets/simbolofacul.png" alt="Símbolo da Faculdade" class="campus-logo">
+                    <h1>🍽️ CantinApp</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span id="nomeAluno"></span>
+                        <button class="btn btn-secondary" onclick="logout()">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content-cantinas">
+            <section class="cantinas-section">
+                <div class="section-header cantinas-header">
+                    <h2>Escolha uma Cantina</h2>
+                    <p class="subtitle">Selecione a cantina da sua preferência para fazer seu pedido</p>
+                </div>
+
+                <div class="cantinas-grid" id="cantinasContainer"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarAutenticacao();
+            carregarCantinas();
+        });
+    </script>
+</body>
+</html>
