@@ -7,6 +7,87 @@ const estudantes = {
     '9999999': { nome: 'Administrador', senha: 'admin123', ra: '9999999', tipo: 'admin' }
 };
 
+// Cantinas disponíveis
+const cantinas = [
+    { id: 1, nome: 'Cantina Central', localizacao: 'Bloco A - Térreo', emoji: '🏢', cor: '#FF6B35', descricao: 'Principal e tradicional' },
+    { id: 2, nome: 'Cantina do Bloco B', localizacao: 'Bloco B - 1º Andar', emoji: '🌟', cor: '#004E89', descricao: 'Moderna e inovadora' },
+    { id: 3, nome: 'Cantina Gourmet', localizacao: 'Bloco C - Terrço', emoji: '👨‍🍳', cor: '#06A77D', descricao: 'Especializada em pratos gourmet' }
+];
+
+// Cardápio Cantina Central
+const cardapio1 = [
+    // Principais
+    { id: 1, nome: 'Frango Grelhado', categoria: 'Principais', preco: 18.50, descricao: 'Peito de frango com tempero especial', emoji: '🍗' },
+    { id: 2, nome: 'Arroz e Feijão', categoria: 'Principais', preco: 12.00, descricao: 'Arroz branco e feijão cremoso', emoji: '🍚' },
+    { id: 3, nome: 'Peixe à Milanesa', categoria: 'Principais', preco: 22.00, descricao: 'Filé de peixe empanado e frito', emoji: '🐟' },
+    { id: 4, nome: 'Carne Vermelha', categoria: 'Principais', preco: 25.00, descricao: 'Carne bovina grelhada', emoji: '🥩' },
+    { id: 5, nome: 'Batata Frita', categoria: 'Acompanhamentos', preco: 8.00, descricao: 'Batata frita crocante', emoji: '🍟' },
+    { id: 6, nome: 'Salada Verde', categoria: 'Acompanhamentos', preco: 10.00, descricao: 'Alface, tomate e cenoura', emoji: '🥗' },
+    { id: 7, nome: 'Brócolis', categoria: 'Acompanhamentos', preco: 7.50, descricao: 'Brócolis cozido no vapor', emoji: '🥦' },
+    { id: 8, nome: 'Batata Doce', categoria: 'Acompanhamentos', preco: 6.50, descricao: 'Batata doce assada', emoji: '🍠' },
+    { id: 9, nome: 'Suco Natural', categoria: 'Bebidas', preco: 6.00, descricao: 'Suco de laranja natural', emoji: '🧃' },
+    { id: 10, nome: 'Refrigerante', categoria: 'Bebidas', preco: 5.00, descricao: 'Refrigerante 350ml', emoji: '🥤' },
+    { id: 11, nome: 'Água', categoria: 'Bebidas', preco: 2.00, descricao: 'Garrafa de água 500ml', emoji: '💧' },
+    { id: 12, nome: 'Café', categoria: 'Bebidas', preco: 3.50, descricao: 'Café coado quente', emoji: '☕' },
+    { id: 13, nome: 'Pudim', categoria: 'Sobremesas', preco: 8.00, descricao: 'Pudim de leite condensado', emoji: '🍮' },
+    { id: 14, nome: 'Brownie', categoria: 'Sobremesas', preco: 10.00, descricao: 'Brownie de chocolate', emoji: '🍫' },
+    { id: 15, nome: 'Sorvete', categoria: 'Sobremesas', preco: 7.00, descricao: 'Sorvete de baunilha', emoji: '🍦' },
+    { id: 16, nome: 'Fruta do Dia', categoria: 'Sobremesas', preco: 4.00, descricao: 'Frutas variadas', emoji: '🍎' }
+];
+
+// Cardápio Cantina do Bloco B
+const cardapio2 = [
+    // Principais
+    { id: 101, nome: 'Moqueca de Peixe', categoria: 'Principais', preco: 26.50, descricao: 'Peixe em molho de coco', emoji: '🍲' },
+    { id: 102, nome: 'Picadinho à Brasileira', categoria: 'Principais', preco: 20.00, descricao: 'Carne moída com cebola e tomate', emoji: '🍽️' },
+    { id: 103, nome: 'Lasanha', categoria: 'Principais', preco: 23.00, descricao: 'Lasanha à bolonhesa', emoji: '🍝' },
+    { id: 104, nome: 'Frango à Parmegiana', categoria: 'Principais', preco: 24.00, descricao: 'Peito empanado com queijo derretido', emoji: '🧀' },
+    { id: 105, nome: 'Purê de Batata', categoria: 'Acompanhamentos', preco: 7.00, descricao: 'Purê cremoso caseiro', emoji: '🥔' },
+    { id: 106, nome: 'Arroz Integral', categoria: 'Acompanhamentos', preco: 6.00, descricao: 'Arroz integral saudável', emoji: '🌾' },
+    { id: 107, nome: 'Legumes Grelhados', categoria: 'Acompanhamentos', preco: 9.00, descricao: 'Abobrinha, cenoura e berinjela', emoji: '🥒' },
+    { id: 108, nome: 'Batata Rústica', categoria: 'Acompanhamentos', preco: 8.50, descricao: 'Batata com casca assada', emoji: '🔥' },
+    { id: 109, nome: 'Suco Detox', categoria: 'Bebidas', preco: 7.50, descricao: 'Suco verde com maçã e gengibre', emoji: '🥬' },
+    { id: 110, nome: 'Chá Gelado', categoria: 'Bebidas', preco: 4.50, descricao: 'Chá gelado de frutas vermelhas', emoji: '🍓' },
+    { id: 111, nome: 'Água com Gás', categoria: 'Bebidas', preco: 2.50, descricao: 'Água mineral com gás', emoji: '🫧' },
+    { id: 112, nome: 'Cappuccino', categoria: 'Bebidas', preco: 5.00, descricao: 'Cappuccino quente', emoji: '☕' },
+    { id: 113, nome: 'Pavê', categoria: 'Sobremesas', preco: 9.00, descricao: 'Pavê de chocolate', emoji: '🍰' },
+    { id: 114, nome: 'Mousse de Morango', categoria: 'Sobremesas', preco: 8.50, descricao: 'Mousse aerado de morango', emoji: '🍓' },
+    { id: 115, nome: 'Açaí', categoria: 'Sobremesas', preco: 10.00, descricao: 'Açaí com granola', emoji: '🫐' },
+    { id: 116, nome: 'Bolo de Cenoura', categoria: 'Sobremesas', preco: 6.00, descricao: 'Bolo de cenoura caseiro', emoji: '🧁' }
+];
+
+// Cardápio Cantina Gourmet
+const cardapio3 = [
+    // Principais
+    { id: 201, nome: 'Salmão ao Molho Manteiga', categoria: 'Principais', preco: 32.00, descricao: 'Salmão com limão siciliano', emoji: '🐟' },
+    { id: 202, nome: 'Costela ao Molho Barbecue', categoria: 'Principais', preco: 28.00, descricao: 'Costela suína defumada', emoji: '🍖' },
+    { id: 203, nome: 'Camarão ao Alho', categoria: 'Principais', preco: 35.00, descricao: 'Camarão fresco com alho e azeite', emoji: '🦐' },
+    { id: 204, nome: 'Filé Mignon Premium', categoria: 'Principais', preco: 38.00, descricao: 'Filé mignon com redução de vinho', emoji: '🥩' },
+    { id: 205, nome: 'Risoto de Cogumelo', categoria: 'Acompanhamentos', preco: 14.00, descricao: 'Risoto cremoso com cogumelos nobres', emoji: '🍄' },
+    { id: 206, nome: 'Espinafre à Mineira', categoria: 'Acompanhamentos', preco: 10.00, descricao: 'Espinafre cozido com alho', emoji: '🌱' },
+    { id: 207, nome: 'Batata Trufada', categoria: 'Acompanhamentos', preco: 12.00, descricao: 'Batata com óleo de trufa', emoji: '🧈' },
+    { id: 208, nome: 'Legumes Crocantes', categoria: 'Acompanhamentos', preco: 11.00, descricao: 'Mix de legumes grelhados', emoji: '🥕' },
+    { id: 209, nome: 'Vinho da Casa', categoria: 'Bebidas', preco: 18.00, descricao: 'Vinho tinto reserva (200ml)', emoji: '🍷' },
+    { id: 210, nome: 'Agua com Gengibre', categoria: 'Bebidas', preco: 5.00, descricao: 'Água com gengibre e limão', emoji: '💧' },
+    { id: 211, nome: 'Suco Prensado', categoria: 'Bebidas', preco: 8.00, descricao: 'Suco prensado à frio', emoji: '🧃' },
+    { id: 212, nome: 'Espresso Duplo', categoria: 'Bebidas', preco: 6.00, descricao: 'Café espresso duplo', emoji: '☕' },
+    { id: 213, nome: 'Soufflé de Chocolate', categoria: 'Sobremesas', preco: 14.00, descricao: 'Soufflé quente com calda', emoji: '🍫' },
+    { id: 214, nome: 'Tarte de Frutas Vermelhas', categoria: 'Sobremesas', preco: 12.00, descricao: 'Tarte com frutas frescas', emoji: '🫐' },
+    { id: 215, nome: 'Panna Cotta', categoria: 'Sobremesas', preco: 11.00, descricao: 'Panna cotta com calda de framboesa', emoji: '🍮' },
+    { id: 216, nome: 'Macaron', categoria: 'Sobremesas', preco: 7.00, descricao: 'Macaron sabor sortido', emoji: '🍪' }
+];
+
+// Armazenar os cardápios
+const cardapios = {
+    1: cardapio1,
+    2: cardapio2,
+    3: cardapio3
+};
+
+// Variável para armazenar a cantina selecionada
+let cantinaSelecionada = null;
+
+// Cardápio padrão (será substituído baseado na cantina)
 const cardapio = [
     // Principais
     { id: 1, nome: 'Frango Grelhado', categoria: 'Principais', preco: 18.50, descricao: 'Peito de frango com tempero especial', emoji: '🍗' },
@@ -58,8 +139,8 @@ function fazerLogin(event) {
         localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
         localStorage.setItem('timestamp', new Date().getTime());
         
-        // Redirecionar para cardápio
-        window.location.href = 'cardapio.html';
+        // Redirecionar para seleção de cantina
+        window.location.href = 'cantinas.html';
     } else {
         // Erro de login
         errorDiv.style.display = 'block';
@@ -111,6 +192,46 @@ function aplicarPermissoes() {
     }
 }
 
+// ==================== CANTINAS ====================
+
+function carregarCantinas() {
+    const container = document.getElementById('cantinasContainer');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    cantinas.forEach(cantina => {
+        const card = document.createElement('div');
+        card.className = 'card-cantina';
+        card.style.borderTopColor = cantina.cor;
+        card.onclick = () => selecionarCantina(cantina.id);
+        
+        card.innerHTML = `
+            <div class="cantina-emoji">${cantina.emoji}</div>
+            <h3>${cantina.nome}</h3>
+            <p class="cantina-descricao">${cantina.descricao}</p>
+            <div class="cantina-localizacao">
+                <span>📍 ${cantina.localizacao}</span>
+            </div>
+            <button class="btn btn-primary btn-full">Selecionar</button>
+        `;
+        
+        container.appendChild(card);
+    });
+}
+
+function selecionarCantina(cantinaId) {
+    cantinaSelecionada = cantinaId;
+    localStorage.setItem('cantinaSelecionada', cantinaId);
+    window.location.href = 'cardapio.html';
+}
+
+function trocarCantina() {
+    carrinho = [];
+    localStorage.removeItem('cantinaSelecionada');
+    window.location.href = 'cantinas.html';
+}
+
 // ==================== CARDÁPIO ====================
 
 function carregarCardapio() {
@@ -119,12 +240,31 @@ function carregarCardapio() {
     
     if (!container) return;
     
+    // Recuperar a cantina selecionada
+    const cantinaId = localStorage.getItem('cantinaSelecionada');
+    if (!cantinaId) {
+        window.location.href = 'cantinas.html';
+        return;
+    }
+    
+    cantinaSelecionada = parseInt(cantinaId);
+    
+    // Obter o cardápio correto da cantina
+    const cardapioAtual = cardapios[cantinaSelecionada] || cardapio1;
+    
+    // Atualizar título com nome da cantina
+    const cantinaNome = cantinas.find(c => c.id === cantinaSelecionada)?.nome || 'Cantina';
+    const titleElement = document.querySelector('.section-header h2');
+    if (titleElement) {
+        titleElement.textContent = `Cardápio - ${cantinaNome}`;
+    }
+    
     container.innerHTML = '';
     atualizarBadgeCarrinho(); // Inicializar badge
     
-    let itens = cardapio;
+    let itens = cardapioAtual;
     if (categoria) {
-        itens = cardapio.filter(item => item.categoria === categoria);
+        itens = cardapioAtual.filter(item => item.categoria === categoria);
     }
     
     itens.forEach(item => {
@@ -138,7 +278,7 @@ function carregarCardapio() {
                 <div class="card-descricao">${item.descricao}</div>
                 <div class="card-footer">
                     <span class="card-preco">R$ ${item.preco.toFixed(2)}</span>
-                    <button class="btn btn-primary btn-pequeno" onclick="adicionarAoCarrinho(${item.id})">
+                    <button class="btn btn-primary btn-pequeno" onclick="adicionarAoCarrinho(${item.id}, ${cantinaSelecionada})">
                         Adicionar
                     </button>
                 </div>
@@ -150,8 +290,10 @@ function carregarCardapio() {
     atualizarStatusCantina();
 }
 
-function obterItemCardapio(id) {
-    return cardapio.find(item => item.id === id);
+function obterItemCardapio(id, cantinaId = null) {
+    const cId = cantinaId || cantinaSelecionada || 1;
+    const cardapioAtual = cardapios[cId] || cardapio1;
+    return cardapioAtual.find(item => item.id === id);
 }
 
 // ==================== CARRINHO ====================
