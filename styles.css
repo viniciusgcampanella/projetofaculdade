@@ -987,6 +987,58 @@ body {
     font-style: italic;
 }
 
+/* Pagamento */
+.opcoes-pagamento {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.btn-pagamento {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-pix {
+    background-color: #32CD32;
+    color: white;
+}
+
+.btn-pix:hover {
+    background-color: #28A428;
+    transform: translateY(-2px);
+}
+
+.btn-cartao {
+    background-color: #FF6B35;
+    color: white;
+}
+
+.btn-cartao:hover {
+    background-color: #E55A2B;
+    transform: translateY(-2px);
+}
+
+.btn-troco {
+    background-color: #06A77D;
+    color: white;
+}
+
+.btn-troco:hover {
+    background-color: #059669;
+    transform: translateY(-2px);
+}
+
 /* Responsive Design - Tablet (768px e abaixo) */
 @media (max-width: 768px) {
     .main-content {

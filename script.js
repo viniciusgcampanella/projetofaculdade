@@ -397,6 +397,25 @@ function formatarData(data) {
     return data.toLocaleDateString('pt-BR');
 }
 
+function formatarMetodoPagamento(pedido) {
+    if (!pedido.metodoPagamento) return 'Não informado';
+
+    switch (pedido.metodoPagamento) {
+        case 'pix':
+            return '📱 Pix';
+        case 'cartao':
+            return '💳 Cartão';
+        case 'troco':
+            if (pedido.valorTroco) {
+                const troco = pedido.valorTroco - pedido.total;
+                return `💵 Dinheiro (Troco: R$ ${troco.toFixed(2)})`;
+            }
+            return '💵 Dinheiro';
+        default:
+            return pedido.metodoPagamento;
+    }
+}
+
 // ==================== PEDIDOS ====================
 
 function confirmarPedido(event) {
@@ -515,6 +534,10 @@ function carregarHistorico() {
                 <div class="info-item">
                     <div class="info-label">Retirada</div>
                     <div class="info-valor">${formatarData(pedido.dataRetirada)}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Pagamento</div>
+                    <div class="info-valor">${formatarMetodoPagamento(pedido)}</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Total</div>
@@ -769,6 +792,235 @@ function fecharModal() {
     document.getElementById('modal').style.display = 'none';
 }
 
+// ==================== PAGAMENTO ====================
+
+function mostrarOpcoesPagamento() {
+    if (carrinho.length === 0) {
+        alert('❌ Adicione itens ao carrinho!');
+        return;
+    }
+
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+
+    let total = 0;
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    modalBody.innerHTML = `
+        <h2 style="text-align: center; margin-bottom: 20px;">💳 Escolha o Método de Pagamento</h2>
+        <div style="background-color: #E8F8F5; padding: 15px; border-radius: 5px; margin: 15px 0; text-align: center;">
+            <strong>Total do Pedido: R$ ${total.toFixed(2)}</strong>
+        </div>
+
+        <div class="opcoes-pagamento">
+            <button class="btn btn-pagamento btn-pix" onclick="selecionarPagamento('pix')">
+                📱 Pix (QR Code)
+            </button>
+            <button class="btn btn-pagamento btn-cartao" onclick="selecionarPagamento('cartao')">
+                💳 Cartão de Crédito/Débito
+            </button>
+            <button class="btn btn-pagamento btn-troco" onclick="selecionarPagamento('troco')">
+                💵 Dinheiro (Troco)
+            </button>
+        </div>
+
+        <button class="btn btn-secondary btn-full" onclick="fecharModal()" style="margin-top: 20px;">Cancelar</button>
+    `;
+
+    modal.style.display = 'block';
+}
+
+function selecionarPagamento(metodo) {
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+
+    let total = 0;
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    if (metodo === 'pix') {
+        modalBody.innerHTML = `
+            <h2 style="text-align: center; margin-bottom: 20px;">📱 Pagamento via Pix</h2>
+            <div style="text-align: center; margin: 20px 0;">
+                <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; display: inline-block;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">📱</div>
+                    <p><strong>QR Code do Pix</strong></p>
+                    <p style="font-size: 0.9em; color: #666;">Escaneie com seu aplicativo bancário</p>
+                </div>
+            </div>
+            <div style="background-color: #E8F8F5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <p><strong>Valor:</strong> R$ ${total.toFixed(2)}</p>
+                <p><strong>Chave Pix:</strong> cantina@universidade.edu.br</p>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="confirmarPedidoComPagamento('pix')">Confirmar Pagamento</button>
+            <button class="btn btn-secondary btn-full" onclick="mostrarOpcoesPagamento()" style="margin-top: 10px;">Voltar</button>
+        `;
+    } else if (metodo === 'cartao') {
+        modalBody.innerHTML = `
+            <h2 style="text-align: center; margin-bottom: 20px;">💳 Cadastrar Cartão</h2>
+            <form id="formCartao" style="max-width: 400px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="numeroCartao">Número do Cartão</label>
+                    <input type="text" id="numeroCartao" placeholder="1234 5678 9012 3456" required maxlength="19">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="validadeCartao">Validade</label>
+                        <input type="text" id="validadeCartao" placeholder="MM/AA" required maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="cvvCartao">CVV</label>
+                        <input type="text" id="cvvCartao" placeholder="123" required maxlength="4">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nomeCartao">Nome no Cartão</label>
+                    <input type="text" id="nomeCartao" placeholder="JOÃO DA SILVA" required>
+                </div>
+                <div style="background-color: #E8F8F5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                    <p><strong>Valor:</strong> R$ ${total.toFixed(2)}</p>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Confirmar Pagamento</button>
+                <button type="button" class="btn btn-secondary btn-full" onclick="mostrarOpcoesPagamento()" style="margin-top: 10px;">Voltar</button>
+            </form>
+        `;
+
+        // Máscara para o número do cartão
+        document.getElementById('numeroCartao').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+        });
+
+        // Máscara para validade
+        document.getElementById('validadeCartao').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Event listener para o formulário
+        document.getElementById('formCartao').addEventListener('submit', function(e) {
+            e.preventDefault();
+            confirmarPedidoComPagamento('cartao');
+        });
+    } else if (metodo === 'troco') {
+        modalBody.innerHTML = `
+            <h2 style="text-align: center; margin-bottom: 20px;">💵 Pagamento em Dinheiro</h2>
+            <form id="formTroco" style="max-width: 400px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="valorTroco">Valor para Troco (R$)</label>
+                    <input type="number" id="valorTroco" placeholder="50,00" step="0.01" min="${total.toFixed(2)}" required>
+                    <small style="color: #666; font-size: 0.9em;">Valor mínimo: R$ ${total.toFixed(2)}</small>
+                </div>
+                <div style="background-color: #E8F8F5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                    <p><strong>Valor do Pedido:</strong> R$ ${total.toFixed(2)}</p>
+                    <p id="trocoCalculado" style="display: none;"><strong>Troco:</strong> R$ 0,00</p>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Confirmar Pagamento</button>
+                <button type="button" class="btn btn-secondary btn-full" onclick="mostrarOpcoesPagamento()" style="margin-top: 10px;">Voltar</button>
+            </form>
+        `;
+
+        // Calcular troco em tempo real
+        document.getElementById('valorTroco').addEventListener('input', function(e) {
+            const valorPago = parseFloat(e.target.value) || 0;
+            const troco = valorPago - total;
+            const trocoElement = document.getElementById('trocoCalculado');
+
+            if (troco > 0) {
+                trocoElement.style.display = 'block';
+                trocoElement.innerHTML = `<strong>Troco:</strong> R$ ${troco.toFixed(2)}`;
+            } else {
+                trocoElement.style.display = 'none';
+            }
+        });
+
+        // Event listener para o formulário
+        document.getElementById('formTroco').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const valorTroco = parseFloat(document.getElementById('valorTroco').value);
+            if (valorTroco < total) {
+                alert('❌ Valor insuficiente para o pedido!');
+                return;
+            }
+            confirmarPedidoComPagamento('troco', valorTroco);
+        });
+    }
+}
+
+function confirmarPedidoComPagamento(metodoPagamento, valorTroco = null) {
+    const dataRetirada = document.getElementById('dataRetirada').value;
+    const observacoes = document.getElementById('observacoes').value;
+
+    let total = 0;
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    const pedido = {
+        id: '#PED' + String(pedidos.length + 1).padStart(5, '0'),
+        ra: usuarioLogado.ra,
+        aluno: usuarioLogado.nome,
+        itens: [...carrinho],
+        total: total,
+        dataRetirada: dataRetirada,
+        observacoes: observacoes,
+        metodoPagamento: metodoPagamento,
+        valorTroco: valorTroco,
+        status: 'Confirmado',
+        dataPedido: new Date().toLocaleDateString('pt-BR'),
+        horaPedido: new Date().toLocaleTimeString('pt-BR')
+    };
+
+    pedidos.push(pedido);
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+
+    // Limpar carrinho e formulário
+    carrinho = [];
+    document.getElementById('formPedido').reset();
+    configurarDataMinima();
+    atualizarCarrinho();
+    atualizarBadgeCarrinho();
+
+    // Mostrar confirmação
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+
+    let detalhesPagamento = '';
+    if (metodoPagamento === 'pix') {
+        detalhesPagamento = 'Pagamento via Pix confirmado!';
+    } else if (metodoPagamento === 'cartao') {
+        detalhesPagamento = 'Pagamento com cartão processado!';
+    } else if (metodoPagamento === 'troco') {
+        detalhesPagamento = `Pagamento em dinheiro - Troco: R$ ${(valorTroco - total).toFixed(2)}`;
+    }
+
+    modalBody.innerHTML = `
+        <h2 style="color: var(--success-color); text-align: center;">✅ Pedido Confirmado!</h2>
+        <p style="text-align: center; margin: 15px 0;">
+            <strong>Número do Pedido: ${pedido.id}</strong>
+        </p>
+        <div style="background-color: #E8F8F5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+            <p><strong>Data de Retirada:</strong> ${formatarData(dataRetirada)}</p>
+            <p><strong>Total:</strong> R$ ${total.toFixed(2)}</p>
+            <p><strong>Pagamento:</strong> ${detalhesPagamento}</p>
+        </div>
+        <p style="text-align: center; font-size: 0.95em;">
+            Seu pedido foi confirmado e está em preparação!<br>
+            Retire no horário indicado junto à cantina.
+        </p>
+        <button class="btn btn-primary btn-full" onclick="fecharModal()">Entendi</button>
+    `;
+
+    modal.style.display = 'block';
+}
+
 window.onclick = function(event) {
     const modal = document.getElementById('modal');
     if (event.target === modal) {
@@ -785,11 +1037,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginForm.addEventListener('submit', fazerLogin);
     }
     
-    // Pedido form
-    const formPedido = document.getElementById('formPedido');
-    if (formPedido) {
-        formPedido.addEventListener('submit', confirmarPedido);
-    }
+    // Pedido form - removido, agora usa botão direto
 });
 
 // Carregar dados ao abrir página (debug)
