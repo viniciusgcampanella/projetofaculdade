@@ -1,9 +1,10 @@
 // ==================== DADOS ====================
 // Base de dados simulada
 const estudantes = {
-    '2024001': { nome: 'João Silva', senha: 'senha123', ra: '2024001' },
-    '2024002': { nome: 'Maria Santos', senha: 'senha123', ra: '2024002' },
-    '2024003': { nome: 'Pedro Costa', senha: 'senha123', ra: '2024003' }
+    '2024001': { nome: 'João Silva', senha: 'senha123', ra: '2024001', tipo: 'aluno' },
+    '2024002': { nome: 'Maria Santos', senha: 'senha123', ra: '2024002', tipo: 'aluno' },
+    '2024003': { nome: 'Pedro Costa', senha: 'senha123', ra: '2024003', tipo: 'aluno' },
+    '9999999': { nome: 'Administrador', senha: 'admin123', ra: '9999999', tipo: 'admin' }
 };
 
 const cardapio = [
@@ -91,7 +92,23 @@ function verificarAutenticacao() {
         nomeElemento.textContent = `👤 ${usuarioLogado.nome}`;
     }
     
+    aplicarPermissoes();
+    
+    if (window.location.pathname.endsWith('relatorio.html') && usuarioLogado.tipo !== 'admin') {
+        window.location.href = 'cardapio.html';
+        return false;
+    }
+    
     return true;
+}
+
+// ==================== AUTORIZAÇÃO ====================
+
+function aplicarPermissoes() {
+    const relatorioNav = document.querySelector('a[href="relatorio.html"]');
+    if (relatorioNav) {
+        relatorioNav.style.display = usuarioLogado && usuarioLogado.tipo === 'admin' ? 'flex' : 'none';
+    }
 }
 
 // ==================== CARDÁPIO ====================
