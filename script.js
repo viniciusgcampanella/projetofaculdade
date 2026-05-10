@@ -795,17 +795,10 @@ function fecharModal() {
 // ==================== PAGAMENTO ====================
 
 function mostrarOpcoesPagamento() {
-    alert('Função chamada! Carrinho tem ' + carrinho.length + ' itens');
-    return;
-
-    console.log('Função mostrarOpcoesPagamento chamada');
-    console.log('Carrinho:', carrinho);
-
-    // Temporariamente removido para teste
-    // if (carrinho.length === 0) {
-    //     alert('❌ Adicione itens ao carrinho!');
-    //     return;
-    // }
+    if (carrinho.length === 0) {
+        alert('❌ Adicione itens ao carrinho!');
+        return;
+    }
 
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modalBody');
@@ -814,8 +807,6 @@ function mostrarOpcoesPagamento() {
     carrinho.forEach(item => {
         total += item.preco * item.quantidade;
     });
-
-    if (total === 0) total = 25.50; // Valor de teste
 
     modalBody.innerHTML = `
         <h2 style="text-align: center; margin-bottom: 20px;">💳 Escolha o Método de Pagamento</h2>
