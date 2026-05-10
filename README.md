@@ -106,7 +106,7 @@ Todos os dados são armazenados no **localStorage** do navegador:
 
 ## 🎯 Horário de Funcionamento
 
-A cantina está aberta de **11:00 às 13:00** (verificado automaticamente no sistema).
+A cantina está aberta de **18:30 às 22:00** (verificado automaticamente no sistema).
 
 ## 📊 Relatório de Desperdício
 

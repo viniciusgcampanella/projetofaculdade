@@ -9,9 +9,9 @@ const estudantes = {
 
 // Cantinas disponíveis
 const cantinas = [
-    { id: 1, nome: 'Cantina Central', localizacao: 'Bloco A - Térreo', emoji: '🏢', cor: '#FF6B35', descricao: 'Principal e tradicional' },
-    { id: 2, nome: 'Cantina do Bloco B', localizacao: 'Bloco B - 1º Andar', emoji: '🌟', cor: '#004E89', descricao: 'Moderna e inovadora' },
-    { id: 3, nome: 'Cantina Gourmet', localizacao: 'Bloco C - Terrço', emoji: '👨‍🍳', cor: '#06A77D', descricao: 'Especializada em pratos gourmet' }
+    { id: 1, nome: 'Cantina Central', localizacao: 'Bloco A - Térreo', emoji: '🏢', cor: '#FF6B35', descricao: 'Principal e tradicional', horario: '18:30 - 22:00' },
+    { id: 2, nome: 'Cantina do Bloco B', localizacao: 'Bloco B - 1º Andar', emoji: '🌟', cor: '#004E89', descricao: 'Moderna e inovadora', horario: '18:30 - 22:00' },
+    { id: 3, nome: 'Cantina Gourmet', localizacao: 'Bloco C - Terrço', emoji: '👨‍🍳', cor: '#06A77D', descricao: 'Especializada em pratos gourmet', horario: '18:30 - 22:00' }
 ];
 
 // Cardápio Cantina Central
@@ -248,6 +248,15 @@ function carregarCardapio() {
     }
     
     cantinaSelecionada = parseInt(cantinaId);
+    
+    // Atualizar horário de retirada
+    const cantina = cantinas.find(c => c.id === cantinaSelecionada);
+    if (cantina) {
+        const horarioElement = document.getElementById('horarioRetirada');
+        if (horarioElement) {
+            horarioElement.textContent = `⏰ Horário de retirada: ${cantina.horario}`;
+        }
+    }
     
     // Obter o cardápio correto da cantina
     const cardapioAtual = cardapios[cantinaSelecionada] || cardapio1;
@@ -755,8 +764,8 @@ function atualizarStatusCantina() {
     const minutosAtuais = new Date().getMinutes();
     const tempoAtual = hora + minutosAtuais / 60;
     
-    // Cantina aberta de 11:00 às 13:00 (11.0 a 13.0)
-    if (tempoAtual >= 11 && tempoAtual < 13) {
+    // Cantina aberta de 18:30 às 22:00 (18.5 a 22.0)
+    if (tempoAtual >= 18.5 && tempoAtual < 22) {
         statusElement.innerHTML = '✅ Aberta';
         statusElement.className = 'badge success';
     } else {
