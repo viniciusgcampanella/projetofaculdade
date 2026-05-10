@@ -251,10 +251,16 @@ function carregarCardapio() {
     
     // Atualizar horário de retirada
     const cantina = cantinas.find(c => c.id === cantinaSelecionada);
-    if (cantina) {
+    if (cantina && cantina.horario) {
         const horarioElement = document.getElementById('horarioRetirada');
         if (horarioElement) {
             horarioElement.textContent = `⏰ Horário de retirada: ${cantina.horario}`;
+        }
+    } else {
+        // Horário padrão se não encontrar cantina
+        const horarioElement = document.getElementById('horarioRetirada');
+        if (horarioElement) {
+            horarioElement.textContent = `⏰ Horário de retirada: 18:30 - 22:00`;
         }
     }
     
