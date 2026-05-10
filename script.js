@@ -795,6 +795,9 @@ function fecharModal() {
 // ==================== PAGAMENTO ====================
 
 function mostrarOpcoesPagamento() {
+    console.log('Função mostrarOpcoesPagamento chamada');
+    console.log('Carrinho:', carrinho);
+
     if (carrinho.length === 0) {
         alert('❌ Adicione itens ao carrinho!');
         return;
@@ -829,7 +832,10 @@ function mostrarOpcoesPagamento() {
         <button class="btn btn-secondary btn-full" onclick="fecharModal()" style="margin-top: 20px;">Cancelar</button>
     `;
 
+    console.log('Modal HTML definido');
+    console.log('Modal element:', modal);
     modal.style.display = 'block';
+    console.log('Modal exibido');
 }
 
 function selecionarPagamento(metodo) {
